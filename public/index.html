@@ -1,93 +1,93 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Transit Frequency Control</title>
+  <title>Control de frecuencia</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
     <div>
-      <h1>Transit Frequency Control</h1>
-      <p>GPS reconstruction · bunching detection · offline supervisor</p>
+      <h1>Control de frecuencia</h1>
+      <p>GPS sucio - deteccion de bunching - modo offline</p>
     </div>
     <div class="status">
       <span id="connectionDot"></span>
-      <span id="connectionText">Online</span>
-      <span class="badge" id="isolationBadge">checking isolation...</span>
+      <span id="connectionText">En linea</span>
+      <span class="badge" id="isolationBadge">revisando...</span>
     </div>
   </header>
 
   <main>
     <section class="toolbar card">
-      <button id="startBtn">Start simulator</button>
-      <button id="stopBtn" disabled>Stop</button>
-      <button id="bunchBtn">Force bunching</button>
-      <button id="offlineBtn">Simulate offline</button>
-      <label>History:
+      <button id="startBtn">Iniciar</button>
+      <button id="stopBtn" disabled>Parar</button>
+      <button id="bunchBtn">Forzar bunching</button>
+      <button id="offlineBtn">Simular offline</button>
+      <label>Historial:
         <input id="historyRange" type="range" min="0" max="120" value="120">
       </label>
-      <span id="historyLabel">Live</span>
+      <span id="historyLabel">En vivo</span>
     </section>
 
     <section class="layout">
       <div class="card mapCard">
         <div class="mapHeader">
-          <strong>Live fleet map</strong>
+          <strong>Mapa de flota</strong>
           <span id="busCount">0 buses</span>
         </div>
         <canvas id="mapCanvas"></canvas>
         <div class="legend">
-          <span>● Normal</span><span>● Bunching risk</span><span>● Estimated</span>
+          <span>Normal</span><span>Riesgo</span><span>Estimado</span>
         </div>
       </div>
 
       <aside class="side">
         <div class="card">
-          <h2>Control center</h2>
+          <h2>Centro de control</h2>
           <div class="metrics">
-            <div><b id="activeCount">0</b><small>active buses</small></div>
-            <div><b id="riskCount">0</b><small>risk alerts</small></div>
-            <div><b id="gapCount">0</b><small>service gaps</small></div>
+            <div><b id="activeCount">0</b><small>buses activos</small></div>
+            <div><b id="riskCount">0</b><small>alertas</small></div>
+            <div><b id="gapCount">0</b><small>huecos</small></div>
             <div><b id="inpValue">--</b><small>INP / ms</small></div>
           </div>
         </div>
 
         <div class="card">
-          <h2>Alerts</h2>
+          <h2>Alertas</h2>
           <div id="alerts" class="list"></div>
         </div>
 
         <div class="card">
-          <h2>Supervisor action</h2>
-          <p id="lastKnown">Last known state: waiting...</p>
+          <h2>Accion supervisor</h2>
+          <p id="lastKnown">Ultimo estado: esperando...</p>
           <div class="actions">
-            <button data-action="hold">Apply hold</button>
-            <button data-action="empty">Bus empty</button>
-            <button data-action="incident">Incident</button>
+            <button data-action="hold">Retener</button>
+            <button data-action="empty">Bus vacio</button>
+            <button data-action="incident">Incidente</button>
           </div>
-          <p id="queueInfo">Offline queue: 0</p>
+          <p id="queueInfo">Cola offline: 0</p>
         </div>
 
         <div class="card">
-          <h2>Worker / algorithm notes</h2>
+          <h2>Notas del algoritmo</h2>
           <ul>
-            <li>Uniform spatial grid indexes route segments.</li>
-            <li>Viterbi-style dynamic programming chooses the coherent road.</li>
-            <li>Monotonic route position prevents GPS rollback.</li>
-            <li>Streaming histograms estimate median and P85.</li>
-            <li>Route order is maintained by binary insertion.</li>
-            <li>Canvas + requestAnimationFrame draws only visible buses.</li>
+            <li>Rejilla uniforme para buscar segmentos cercanos.</li>
+            <li>Costo de distancia y avance para evitar saltos de calle.</li>
+            <li>Posicion en metros no retrocede si no hay reversa.</li>
+            <li>Histogramas simples para mediana y P85.</li>
+            <li>Orden por ruta con insercion binaria.</li>
+            <li>Canvas con requestAnimationFrame.</li>
           </ul>
         </div>
       </aside>
     </section>
 
     <section class="card">
-      <h2>Performance instrumentation</h2>
+      <h2>Instrumentacion</h2>
       <div id="performanceLog" class="perf">
-        <span>PerformanceObserver: waiting for interaction...</span>
+        <span>PerformanceObserver: esperando interaccion...</span>
       </div>
     </section>
   </main>

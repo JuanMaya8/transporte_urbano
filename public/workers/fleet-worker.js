@@ -6,6 +6,7 @@ let frequencies={R01:6,R02:7,R03:8,R04:6,R05:10,R06:9,R07:6,R08:8,R09:7,R10:12,R
 
 function notify(msg){ports.forEach(p=>p.postMessage(msg));}
 function updateOrder(b){
+  if(b.inService===false)return;
   if(!routeBuses.has(b.route))routeBuses.set(b.route,[]);
   const arr=routeBuses.get(b.route);
   const idx=arr.indexOf(b.bus);
@@ -33,7 +34,16 @@ onconnect=(e)=>{
   const port=e.ports[0]; ports.push(port); port.start();
   port.onmessage=(ev)=>{
     if(ev.data.type==="matched"){
-      for(const b of ev.data.payload){buses.set(b.bus,b);updateOrder(b);}
+      for(const b of ev.data.payload){
+        buses.set(b.bus,b);
+        if(b.inService===false){
+          const arr=routeBuses.get(b.route);
+          const idx=arr?arr.indexOf(b.bus):-1;
+          if(idx>=0)arr.splice(idx,1);
+        } else {
+          updateOrder(b);
+        }
+      }
       recalc();
     }
     if(ev.data.type==="clear"){buses.clear();routeBuses.clear();}

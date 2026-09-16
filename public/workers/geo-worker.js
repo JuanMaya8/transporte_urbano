@@ -5,6 +5,7 @@ const GRID_SIZE = 0.0007; // roughly 75 m latitude at this latitude.
 let routes = {};
 let workerIndex = 0;
 let workerCount = 1;
+let routeIds = [];
 let candidatesByRoute = {};
 let busStates = new Map();
 
@@ -60,7 +61,7 @@ function scoreCandidate(point, route, i, prev){
   if(prev){
     const delta=prefix-prev.s;
     // Transition penalty: strongly discourages jumping backwards or making
-    // an implausibly large advance between 10–30 s samples.
+    // an implausibly large advance between 10 to 30 s samples.
     if(delta < -12) score += 220;
     if(delta > 150) score += (delta-150)*0.9;
     score += Math.abs(delta-prev.expectedDelta)*0.35;
@@ -81,6 +82,7 @@ self.onmessage=(e)=>{
   const {type,payload}=e.data;
   if(type==="init"){
     routes=payload.routes;
+    routeIds=Object.keys(routes);
     workerIndex=payload.workerIndex;
     workerCount=payload.workerCount;
     Object.values(routes).forEach((r,idx)=>{
@@ -95,26 +97,50 @@ self.onmessage=(e)=>{
     });
     self.postMessage({type:"ready",workerIndex});
   }
-  if(type==="gpsBatch"){
-    const result=[];
-    for(const point of payload){
-      const route=routes[point.route];
-      if(!route || (Object.keys(routes).indexOf(point.route)%workerCount!==workerIndex)) continue;
-      const m=match(point,route);
-      const old=busStates.get(point.bus);
-      let estimated=false;
-      let s=m.s;
-      if(old && s < old.s && !point.reverse){
-        s=old.s;
-      }
-      if(old){
-        const dt=Math.max(0.1,(point.serverTs-old.serverTs)/1000);
-        const expectedDelta=Math.max(0,Math.min(120,(point.vel||0)*dt));
-        m.expectedDelta=expectedDelta;
-      }
-      busStates.set(point.bus,{s,serverTs:point.serverTs,expectedDelta:m.expectedDelta||0});
-      result.push({bus:point.bus,route:point.route,s,lat:point.lat,lon:point.lon,vel:point.vel||0,hdop:point.hdop||0,estimated,score:m.score,serverTs:point.serverTs});
+  if(type==="gpsPacked"){
+    const raw=new Float64Array(payload);
+    const points=[];
+    for(let i=0;i<raw.length;i+=10){
+      points.push({
+        bus:raw[i],
+        route:routeIds[raw[i+1]],
+        lat:raw[i+2],
+        lon:raw[i+3],
+        vel:raw[i+4],
+        hdop:raw[i+5],
+        inService:raw[i+6]!==0,
+        serverTs:raw[i+7],
+        ts:raw[i+8],
+        reverse:raw[i+9]===1
+      });
     }
-    self.postMessage({type:"matched",payload:result});
+    handleGps(points);
+  }
+  if(type==="gpsBatch"){
+    handleGps(payload);
   }
 };
+
+function handleGps(payload){
+  const result=[];
+  for(const point of payload){
+    const route=routes[point.route];
+    if(!route || (routeIds.indexOf(point.route)%workerCount!==workerIndex)) continue;
+    const old=busStates.get(point.bus);
+    if(old && point.serverTs < old.serverTs - 2000) continue;
+    const m=match(point,route);
+    let estimated=false;
+    let s=m.s;
+    if(old && s < old.s && !point.reverse){
+      s=old.s;
+    }
+    if(old){
+      const dt=Math.max(0.1,(point.serverTs-old.serverTs)/1000);
+      const expectedDelta=Math.max(0,Math.min(120,(point.vel||0)*dt));
+      m.expectedDelta=expectedDelta;
+    }
+    busStates.set(point.bus,{s,serverTs:point.serverTs,expectedDelta:m.expectedDelta||0});
+    result.push({bus:point.bus,route:point.route,s,lat:point.lat,lon:point.lon,vel:point.vel||0,hdop:point.hdop||0,estimated,score:m.score,serverTs:point.serverTs,inService:point.inService!==false});
+  }
+  self.postMessage({type:"matched",payload:result});
+}
