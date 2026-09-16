@@ -12,6 +12,9 @@ abrir:
 
 `http://localhost:3000`
 
+Profe no tengo idea de porque con la URL de vercel no funciona y solo pinta en pantalla, pero corriendo en local luego de instalar las dependencias si funciona
+
+
 ## RT-2 SharedArrayBuffer
 
 Se incluye el siguiente módulo pequeño como implementación de referencia para un estado de la flota con doble búfer. El renderizador puede leer la última versión completada sin esperar al *worker*.
