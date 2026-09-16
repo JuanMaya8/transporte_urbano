@@ -1,0 +1,34 @@
+*{box-sizing:border-box}
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#182230;background:#eef2f6}
+body{margin:0}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:#17212f;color:white}
+h1{margin:0;font-size:24px} h2{font-size:16px;margin:0 0 12px}
+header p{margin:4px 0 0;opacity:.75;font-size:13px}
+.status{display:flex;gap:9px;align-items:center;font-size:13px}
+#connectionDot{width:10px;height:10px;border-radius:50%;background:#32b46b}
+.badge{padding:4px 7px;border-radius:5px;background:#26364a}
+main{max-width:1400px;margin:auto;padding:16px}
+.card{background:white;border:1px solid #d9e0e8;border-radius:10px;box-shadow:0 2px 7px #17212f12;padding:14px}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+button{border:1px solid #b8c4d1;background:#fff;border-radius:7px;padding:8px 11px;cursor:pointer}
+button:hover{background:#f1f5f8}
+button:disabled{opacity:.45;cursor:not-allowed}
+.toolbar button:first-child{background:#17212f;color:white}
+.toolbar label{margin-left:auto;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}
+.mapCard{padding:0;overflow:hidden}
+.mapHeader{height:44px;padding:12px 14px;display:flex;justify-content:space-between;border-bottom:1px solid #e2e7ed}
+#mapCanvas{display:block;width:100%;height:610px;background:#f5f7f9}
+.legend{padding:8px 14px;display:flex;gap:18px;font-size:12px;border-top:1px solid #e2e7ed}
+.legend span:nth-child(1){color:#268b57}.legend span:nth-child(2){color:#d94b3d}.legend span:nth-child(3){color:#8b63c7}
+.side{display:flex;flex-direction:column;gap:16px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metrics div{padding:10px;background:#f4f6f8;border-radius:7px}
+.metrics b{display:block;font-size:22px}.metrics small{color:#687484}
+.list{max-height:210px;overflow:auto}.alert{padding:9px;border-left:4px solid #d94b3d;background:#fff5f3;margin-bottom:7px;font-size:12px}
+.actions{display:flex;gap:6px}.actions button{flex:1;font-size:11px}
+#lastKnown{font-size:12px;color:#647182}
+ul{padding-left:18px;margin:0;font-size:12px;line-height:1.6}
+.perf{font-size:12px;display:flex;gap:20px;flex-wrap:wrap}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.mapCard{grid-column:1/-1}#mapCanvas{height:55vh}}
+@media(max-width:620px){header{padding:14px}.side{display:flex}.toolbar label{margin-left:0}.toolbar{gap:6px}main{padding:8px}}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Transit Frequency Control</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Transit Frequency Control</h1>
+      <p>GPS reconstruction · bunching detection · offline supervisor</p>
+    </div>
+    <div class="status">
+      <span id="connectionDot"></span>
+      <span id="connectionText">Online</span>
+      <span class="badge" id="isolationBadge">checking isolation...</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="toolbar card">
+      <button id="startBtn">Start simulator</button>
+      <button id="stopBtn" disabled>Stop</button>
+      <button id="bunchBtn">Force bunching</button>
+      <button id="offlineBtn">Simulate offline</button>
+      <label>History:
+        <input id="historyRange" type="range" min="0" max="120" value="120">
+      </label>
+      <span id="historyLabel">Live</span>
+    </section>
+
+    <section class="layout">
+      <div class="card mapCard">
+        <div class="mapHeader">
+          <strong>Live fleet map</strong>
+          <span id="busCount">0 buses</span>
+        </div>
+        <canvas id="mapCanvas"></canvas>
+        <div class="legend">
+          <span>● Normal</span><span>● Bunching risk</span><span>● Estimated</span>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="card">
+          <h2>Control center</h2>
+          <div class="metrics">
+            <div><b id="activeCount">0</b><small>active buses</small></div>
+            <div><b id="riskCount">0</b><small>risk alerts</small></div>
+            <div><b id="gapCount">0</b><small>service gaps</small></div>
+            <div><b id="inpValue">--</b><small>INP / ms</small></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Alerts</h2>
+          <div id="alerts" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Supervisor action</h2>
+          <p id="lastKnown">Last known state: waiting...</p>
+          <div class="actions">
+            <button data-action="hold">Apply hold</button>
+            <button data-action="empty">Bus empty</button>
+            <button data-action="incident">Incident</button>
+          </div>
+          <p id="queueInfo">Offline queue: 0</p>
+        </div>
+
+        <div class="card">
+          <h2>Worker / algorithm notes</h2>
+          <ul>
+            <li>Uniform spatial grid indexes route segments.</li>
+            <li>Viterbi-style dynamic programming chooses the coherent road.</li>
+            <li>Monotonic route position prevents GPS rollback.</li>
+            <li>Streaming histograms estimate median and P85.</li>
+            <li>Route order is maintained by binary insertion.</li>
+            <li>Canvas + requestAnimationFrame draws only visible buses.</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Performance instrumentation</h2>
+      <div id="performanceLog" class="perf">
+        <span>PerformanceObserver: waiting for interaction...</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

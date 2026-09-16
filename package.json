@@ -1,0 +1,13 @@
+{
+  "name": "case3-transport-frequency",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple implementation of Case Study 3: urban public transport frequency control.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
