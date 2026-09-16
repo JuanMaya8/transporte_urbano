@@ -3,9 +3,9 @@
 }
 
 :root {
-  color: #20252b;
-  background: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+  background: #eeeeee;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -13,13 +13,11 @@ body {
 }
 
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 24px;
-  color: #fff;
-  background: #252a30;
+  display: block;
+  padding: 15px 20px;
+  color: #111;
+  background: #ffcc66;
+  border-bottom: 3px solid #333;
 }
 
 h1,
@@ -29,9 +27,9 @@ p {
 }
 
 h1 {
-  margin-bottom: 4px;
-  font-size: 22px;
-  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 26px;
+  font-weight: bold;
 }
 
 h2 {
@@ -41,8 +39,8 @@ h2 {
 
 header p {
   margin: 0;
-  color: #c8cdd2;
-  font-size: 13px;
+  color: #333;
+  font-size: 14px;
 }
 
 .status,
@@ -58,53 +56,52 @@ header p {
 
 .status {
   gap: 8px;
-  color: #d9dde1;
+  margin-top: 12px;
+  color: #333;
   font-size: 13px;
 }
 
 #connectionDot {
   width: 9px;
   height: 9px;
-  background: #61b37a;
+  background: green;
 }
 
 .badge {
   padding-left: 10px;
-  border-left: 1px solid #687078;
-  color: #c8cdd2;
+  border-left: 1px solid #333;
+  color: #333;
 }
 
 main {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 12px 24px 24px;
+  padding: 10px 20px 30px;
 }
 
 .card {
-  padding: 12px 0;
-  border: 0;
-  border-bottom: 1px solid #d7dce1;
-  background: transparent;
+  padding: 10px;
+  border: 2px solid #555;
+  background: #fff;
 }
 
 .toolbar {
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 8px;
-  padding-bottom: 12px;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 button {
-  padding: 8px 11px;
-  border: 1px solid #aeb6bd;
-  border-radius: 0;
-  color: #20252b;
-  background: #fff;
+  padding: 7px 9px;
+  border: 2px solid #444;
+  border-radius: 2px;
+  color: #111;
+  background: #dddddd;
   cursor: pointer;
 }
 
 button:hover {
-  background: #eef1f3;
+  background: #ffff99;
 }
 
 button:disabled {
@@ -113,9 +110,9 @@ button:disabled {
 }
 
 .toolbar button:first-child {
-  color: #fff;
-  background: #252a30;
-  border-color: #252a30;
+  color: #111;
+  background: #66cc99;
+  border-color: #444;
 }
 
 .toolbar label {
@@ -132,35 +129,35 @@ input[type="range"] {
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  gap: 24px;
+  grid-template-columns: 69% 31%;
+  gap: 7px;
 }
 
 .mapCard {
   padding: 0;
-  border: 1px solid #cfd5da;
-  background: #f8fafb;
+  border: 2px solid #555;
+  background: #e7f1e7;
 }
 
 .mapHeader {
   justify-content: space-between;
-  min-height: 44px;
-  padding: 12px 14px;
-  border-bottom: 1px solid #d7dce1;
+  min-height: 38px;
+  padding: 8px 10px;
+  border-bottom: 2px solid #555;
 }
 
 #mapCanvas {
   display: block;
   width: 100%;
-  height: 610px;
-  background: #f8fafb;
+  height: 570px;
+  background: #e7f1e7;
 }
 
 .legend {
   gap: 18px;
-  padding: 8px 14px;
-  border-top: 1px solid #d7dce1;
-  color: #5d666e;
+  padding: 8px 10px;
+  border-top: 2px solid #555;
+  color: #333;
   font-size: 12px;
 }
 
@@ -182,8 +179,8 @@ input[type="range"] {
 
 .metrics div {
   padding: 10px;
-  border: 1px solid #e1e4e7;
-  background: #fff;
+  border: 1px solid #777;
+  background: #eeeecc;
 }
 
 .metrics b {
@@ -207,8 +204,8 @@ input[type="range"] {
 .alert {
   margin-bottom: 7px;
   padding: 8px;
-  border-left: 3px solid #b73832;
-  background: #f8eeee;
+  border-left: 5px solid red;
+  background: #ffdddd;
   font-size: 12px;
 }
 

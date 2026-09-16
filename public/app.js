@@ -250,13 +250,15 @@ function draw() {
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
   ctx.fillStyle = "#f8fafb";
   ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-  ctx.strokeStyle = "#e5e9ec";
+  ctx.strokeStyle = "#b9c9b9";
   ctx.lineWidth = 1;
   for (let x = 0; x < canvas.clientWidth; x += 48) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.clientHeight); ctx.stroke();
+    const smallError = x % 96 === 0 ? 5 : 0;
+    ctx.beginPath(); ctx.moveTo(x + smallError, 0); ctx.lineTo(x, canvas.clientHeight); ctx.stroke();
   }
   for (let y = 0; y < canvas.clientHeight; y += 48) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.clientWidth, y); ctx.stroke();
+    const smallError = y % 144 === 0 ? -4 : 0;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.clientWidth, y + smallError); ctx.stroke();
   }
 
   Object.values(routes).forEach((r, index) => {
