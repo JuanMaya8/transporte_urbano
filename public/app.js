@@ -247,24 +247,26 @@ function tick() {
 
 function draw() {
   resizeCanvas();
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "#dce2e8";
+  ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+  ctx.fillStyle = "#f8fafb";
+  ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+  ctx.strokeStyle = "#e5e9ec";
   ctx.lineWidth = 1;
-  for (let x = 0; x < canvas.clientWidth; x += 45) {
+  for (let x = 0; x < canvas.clientWidth; x += 48) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.clientHeight); ctx.stroke();
   }
-  for (let y = 0; y < canvas.clientHeight; y += 45) {
+  for (let y = 0; y < canvas.clientHeight; y += 48) {
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.clientWidth, y); ctx.stroke();
   }
 
-  Object.values(routes).forEach(r => {
+  Object.values(routes).forEach((r, index) => {
     ctx.beginPath();
     r.points.forEach((p, i) => {
       const q = projectCanvas(p);
       i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
     });
-    ctx.strokeStyle = "#b6bec8";
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = index % 2 ? "#b9c6cf" : "#9eafb9";
+    ctx.lineWidth = index % 2 ? 1 : 2;
     ctx.stroke();
   });
 
@@ -273,10 +275,12 @@ function draw() {
   rows.filter(inView).forEach(b => {
     const q = projectCanvas(b);
     const risk = alerts.some(a => a.bus === b.bus && a.type === "bunching");
-    ctx.beginPath();
-    ctx.arc(q.x, q.y, b.inService ? 4 : 3, 0, Math.PI * 2);
-    ctx.fillStyle = b.estimated ? "#8b63c7" : risk ? "#d94b3d" : "#268b57";
-    ctx.fill();
+    const size = b.inService ? 8 : 6;
+    ctx.fillStyle = b.estimated ? "#7a63a8" : risk ? "#b73832" : "#277a4b";
+    ctx.fillRect(q.x - size / 2, q.y - size / 2, size, size);
+    ctx.fillStyle = "#20252b";
+    ctx.font = "10px Arial";
+    ctx.fillText(String(b.bus), q.x + 6, q.y + 3);
   });
   requestAnimationFrame(draw);
 }

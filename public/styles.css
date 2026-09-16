@@ -1,34 +1,261 @@
-*{box-sizing:border-box}
-:root{font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#182230;background:#eef2f6}
-body{margin:0}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:#17212f;color:white}
-h1{margin:0;font-size:24px} h2{font-size:16px;margin:0 0 12px}
-header p{margin:4px 0 0;opacity:.75;font-size:13px}
-.status{display:flex;gap:9px;align-items:center;font-size:13px}
-#connectionDot{width:10px;height:10px;border-radius:50%;background:#32b46b}
-.badge{padding:4px 7px;border-radius:5px;background:#26364a}
-main{max-width:1400px;margin:auto;padding:16px}
-.card{background:white;border:1px solid #d9e0e8;border-radius:10px;box-shadow:0 2px 7px #17212f12;padding:14px}
-.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-button{border:1px solid #b8c4d1;background:#fff;border-radius:7px;padding:8px 11px;cursor:pointer}
-button:hover{background:#f1f5f8}
-button:disabled{opacity:.45;cursor:not-allowed}
-.toolbar button:first-child{background:#17212f;color:white}
-.toolbar label{margin-left:auto;font-size:13px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}
-.mapCard{padding:0;overflow:hidden}
-.mapHeader{height:44px;padding:12px 14px;display:flex;justify-content:space-between;border-bottom:1px solid #e2e7ed}
-#mapCanvas{display:block;width:100%;height:610px;background:#f5f7f9}
-.legend{padding:8px 14px;display:flex;gap:18px;font-size:12px;border-top:1px solid #e2e7ed}
-.legend span:nth-child(1){color:#268b57}.legend span:nth-child(2){color:#d94b3d}.legend span:nth-child(3){color:#8b63c7}
-.side{display:flex;flex-direction:column;gap:16px}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.metrics div{padding:10px;background:#f4f6f8;border-radius:7px}
-.metrics b{display:block;font-size:22px}.metrics small{color:#687484}
-.list{max-height:210px;overflow:auto}.alert{padding:9px;border-left:4px solid #d94b3d;background:#fff5f3;margin-bottom:7px;font-size:12px}
-.actions{display:flex;gap:6px}.actions button{flex:1;font-size:11px}
-#lastKnown{font-size:12px;color:#647182}
-ul{padding-left:18px;margin:0;font-size:12px;line-height:1.6}
-.perf{font-size:12px;display:flex;gap:20px;flex-wrap:wrap}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.mapCard{grid-column:1/-1}#mapCanvas{height:55vh}}
-@media(max-width:620px){header{padding:14px}.side{display:flex}.toolbar label{margin-left:0}.toolbar{gap:6px}main{padding:8px}}
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: #20252b;
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  color: #fff;
+  background: #252a30;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+header p {
+  margin: 0;
+  color: #c8cdd2;
+  font-size: 13px;
+}
+
+.status,
+.toolbar,
+.mapHeader,
+.legend,
+.metrics,
+.actions,
+.perf {
+  display: flex;
+  align-items: center;
+}
+
+.status {
+  gap: 8px;
+  color: #d9dde1;
+  font-size: 13px;
+}
+
+#connectionDot {
+  width: 9px;
+  height: 9px;
+  background: #61b37a;
+}
+
+.badge {
+  padding-left: 10px;
+  border-left: 1px solid #687078;
+  color: #c8cdd2;
+}
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px 24px 24px;
+}
+
+.card {
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid #d7dce1;
+  background: transparent;
+}
+
+.toolbar {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+}
+
+button {
+  padding: 8px 11px;
+  border: 1px solid #aeb6bd;
+  border-radius: 0;
+  color: #20252b;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eef1f3;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+.toolbar button:first-child {
+  color: #fff;
+  background: #252a30;
+  border-color: #252a30;
+}
+
+.toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  font-size: 13px;
+}
+
+input[type="range"] {
+  accent-color: #252a30;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 24px;
+}
+
+.mapCard {
+  padding: 0;
+  border: 1px solid #cfd5da;
+  background: #f8fafb;
+}
+
+.mapHeader {
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #d7dce1;
+}
+
+#mapCanvas {
+  display: block;
+  width: 100%;
+  height: 610px;
+  background: #f8fafb;
+}
+
+.legend {
+  gap: 18px;
+  padding: 8px 14px;
+  border-top: 1px solid #d7dce1;
+  color: #5d666e;
+  font-size: 12px;
+}
+
+.legend span:nth-child(1) { color: #277a4b; }
+.legend span:nth-child(2) { color: #b73832; }
+.legend span:nth-child(3) { color: #6b5aa5; }
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.metrics div {
+  padding: 10px;
+  border: 1px solid #e1e4e7;
+  background: #fff;
+}
+
+.metrics b {
+  display: block;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.metrics small,
+#lastKnown,
+#queueInfo {
+  color: #68727b;
+  font-size: 12px;
+}
+
+.list {
+  max-height: 210px;
+  overflow: auto;
+}
+
+.alert {
+  margin-bottom: 7px;
+  padding: 8px;
+  border-left: 3px solid #b73832;
+  background: #f8eeee;
+  font-size: 12px;
+}
+
+.actions {
+  gap: 6px;
+}
+
+.actions button {
+  flex: 1;
+  font-size: 11px;
+}
+
+.perf {
+  flex-wrap: wrap;
+  gap: 16px;
+  color: #68727b;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  #mapCanvas {
+    height: 55vh;
+  }
+}
+
+@media (max-width: 620px) {
+  header,
+  main {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .toolbar label {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .toolbar input {
+    flex: 1;
+  }
+}

@@ -1,6 +1,6 @@
 # Control de frecuencia de buses
 
-Proyecto del caso 3. Es una app sencilla para simular 310 buses en 22 rutas, mirar el mapa y detectar cuando dos buses de la misma ruta se estan juntando.
+Proyecto del caso 3. simular 310 buses en 22 rutas, mirar el mapa y detectar cuando dos buses de la misma ruta se estan juntando.
 
 ## Como correr
 
@@ -11,13 +11,7 @@ npm start
 
 Abrir `http://localhost:3000`.
 
-## Que hace
 
-- Genera buses con ruido de GPS, saltos en el centro, silencios, relojes desfasados y mensajes viejos.
-- Usa Web Workers para ubicar el punto GPS sobre la ruta.
-- Usa un Shared Worker para ordenar los buses por ruta y sacar alertas.
-- Usa Service Worker para abrir sin internet y guardar acciones del supervisor.
-- Dibuja en canvas, no crea un div por cada bus.
 
 ## Camino del GPS hasta la alerta
 
