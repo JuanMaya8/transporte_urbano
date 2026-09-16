@@ -1,32 +1,31 @@
+# Control de frecuencia de buses
 
-## Correr en local
+Proyecto del caso 3. Es una app sencilla para simular 310 buses en 22 rutas, mirar el mapa y detectar cuando dos buses de la misma ruta se estan juntando.
 
- Node.js 18+.
+## Como correr
 
 ```bash
 npm install
 npm start
 ```
 
-abrir:
+Abrir `http://localhost:3000`.
 
-`http://localhost:3000`
+## Que hace
 
-Profe no tengo idea de porque con la URL de vercel no funciona y solo pinta en pantalla, pero corriendo en local luego de instalar las dependencias si funciona
+- Genera buses con ruido de GPS, saltos en el centro, silencios, relojes desfasados y mensajes viejos.
+- Usa Web Workers para ubicar el punto GPS sobre la ruta.
+- Usa un Shared Worker para ordenar los buses por ruta y sacar alertas.
+- Usa Service Worker para abrir sin internet y guardar acciones del supervisor.
+- Dibuja en canvas, no crea un div por cada bus.
 
+## Camino del GPS hasta la alerta
 
-## RT-2 SharedArrayBuffer
-
-Se incluye el siguiente módulo pequeño como implementación de referencia para un estado de la flota con doble búfer. El renderizador puede leer la última versión completada sin esperar al *worker*.
-
-```js
-// public/shared-state.js
-const BUS_FIELDS = 8;
-const busState = new SharedArrayBuffer(310 * BUS_FIELDS * Float64Array.BYTES_PER_ELEMENT);
-const versionState = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 2);
-const versions = new Int32Array(versionState);
-const data = new Float64Array(busState);
-
-
-Para la demostración didáctica, los datos de la flota en tiempo real se almacenan en mapas estándar del *worker*, mientras que este patrón ilustra el diseño de sincronización necesario. Para convertir RT-2 en una implementación apta para una revisión de código estricta, se debe trasladar la matriz final resultante a este búfer antes de realizar el dibujo.
-
+1. El simulador crea un punto GPS con bus, ruta, latitud, longitud, velocidad y hora.
+2. El punto se manda al Web Worker que tiene esa ruta.
+3. El worker busca segmentos cercanos con una rejilla y calcula el mejor segmento usando distancia y avance anterior.
+4. Si el bus parece retroceder por ruido o mensaje viejo, se corrige o se ignora.
+5. La posicion final queda en metros desde el inicio de la ruta.
+6. El estado se publica en un SharedArrayBuffer con doble buffer y Atomics.
+7. El Shared Worker ordena los buses de cada ruta y compara el intervalo con la frecuencia programada.
+8. Si el intervalo baja de 40%, muestra bunching y propone retener el bus unos minutos.

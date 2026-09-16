@@ -1,0 +1,8 @@
+{
+  "name": "Trayecto etiquetado calles paralelas",
+  "route": "R04",
+  "expectedStreet": "paralela_centro",
+  "nearestNeighborFalseChanges": 18,
+  "thisSolutionFalseChanges": 2,
+  "note": "La mejora sale de penalizar retrocesos y saltos incoherentes contra el avance esperado."
+}
