@@ -3,8 +3,8 @@
 }
 
 :root {
-  color: #222;
-  background: #eeeeee;
+  color: #000;
+  background: #fff;
   font-family: Arial, sans-serif;
 }
 
@@ -15,9 +15,9 @@ body {
 header {
   display: block;
   padding: 15px 20px;
-  color: #111;
-  background: #ffcc66;
-  border-bottom: 3px solid #333;
+  color: #fff;
+  background: #000;
+  border-bottom: 3px solid #000;
 }
 
 h1,
@@ -39,7 +39,7 @@ h2 {
 
 header p {
   margin: 0;
-  color: #333;
+  color: #fff;
   font-size: 14px;
 }
 
@@ -57,20 +57,21 @@ header p {
 .status {
   gap: 8px;
   margin-top: 12px;
-  color: #333;
+  color: #fff;
   font-size: 13px;
 }
 
 #connectionDot {
   width: 9px;
   height: 9px;
-  background: green;
+  background: #000;
+  border: 1px solid #000;
 }
 
 .badge {
   padding-left: 10px;
-  border-left: 1px solid #333;
-  color: #333;
+  border-left: 1px solid #fff;
+  color: #fff;
 }
 
 main {
@@ -81,7 +82,7 @@ main {
 
 .card {
   padding: 10px;
-  border: 2px solid #555;
+  border: 2px solid #000;
   background: #fff;
 }
 
@@ -93,15 +94,16 @@ main {
 
 button {
   padding: 7px 9px;
-  border: 2px solid #444;
+  border: 2px solid #000;
   border-radius: 2px;
-  color: #111;
-  background: #dddddd;
+  color: #000;
+  background: #fff;
   cursor: pointer;
 }
 
 button:hover {
-  background: #ffff99;
+  background: #000;
+  color: #fff;
 }
 
 button:disabled {
@@ -110,9 +112,9 @@ button:disabled {
 }
 
 .toolbar button:first-child {
-  color: #111;
-  background: #66cc99;
-  border-color: #444;
+  color: #fff;
+  background: #000;
+  border-color: #000;
 }
 
 .toolbar label {
@@ -124,7 +126,7 @@ button:disabled {
 }
 
 input[type="range"] {
-  accent-color: #252a30;
+  accent-color: #000;
 }
 
 .layout {
@@ -135,35 +137,33 @@ input[type="range"] {
 
 .mapCard {
   padding: 0;
-  border: 2px solid #555;
-  background: #e7f1e7;
+  border: 2px solid #000;
+  background: #fff;
 }
 
 .mapHeader {
   justify-content: space-between;
   min-height: 38px;
   padding: 8px 10px;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid #000;
 }
 
 #mapCanvas {
   display: block;
   width: 100%;
   height: 570px;
-  background: #e7f1e7;
+  background: #fff;
 }
 
 .legend {
   gap: 18px;
   padding: 8px 10px;
-  border-top: 2px solid #555;
-  color: #333;
+  border-top: 2px solid #000;
+  color: #000;
   font-size: 12px;
 }
 
-.legend span:nth-child(1) { color: #277a4b; }
-.legend span:nth-child(2) { color: #b73832; }
-.legend span:nth-child(3) { color: #6b5aa5; }
+.legend span { color: #000; }
 
 .side {
   display: flex;
@@ -179,8 +179,8 @@ input[type="range"] {
 
 .metrics div {
   padding: 10px;
-  border: 1px solid #777;
-  background: #eeeecc;
+  border: 1px solid #000;
+  background: #fff;
 }
 
 .metrics b {
@@ -192,7 +192,7 @@ input[type="range"] {
 .metrics small,
 #lastKnown,
 #queueInfo {
-  color: #68727b;
+  color: #000;
   font-size: 12px;
 }
 
@@ -204,8 +204,8 @@ input[type="range"] {
 .alert {
   margin-bottom: 7px;
   padding: 8px;
-  border-left: 5px solid red;
-  background: #ffdddd;
+  border-left: 5px solid #000;
+  background: #fff;
   font-size: 12px;
 }
 
@@ -221,7 +221,7 @@ input[type="range"] {
 .perf {
   flex-wrap: wrap;
   gap: 16px;
-  color: #68727b;
+  color: #000;
   font-size: 12px;
 }
 

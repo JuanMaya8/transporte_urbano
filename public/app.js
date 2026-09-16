@@ -248,9 +248,9 @@ function tick() {
 function draw() {
   resizeCanvas();
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-  ctx.fillStyle = "#f8fafb";
+  ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-  ctx.strokeStyle = "#b9c9b9";
+  ctx.strokeStyle = "#ddd";
   ctx.lineWidth = 1;
   for (let x = 0; x < canvas.clientWidth; x += 48) {
     const smallError = x % 96 === 0 ? 5 : 0;
@@ -267,7 +267,7 @@ function draw() {
       const q = projectCanvas(p);
       i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
     });
-    ctx.strokeStyle = index % 2 ? "#b9c6cf" : "#9eafb9";
+    ctx.strokeStyle = index % 2 ? "#bbb" : "#777";
     ctx.lineWidth = index % 2 ? 1 : 2;
     ctx.stroke();
   });
@@ -278,9 +278,9 @@ function draw() {
     const q = projectCanvas(b);
     const risk = alerts.some(a => a.bus === b.bus && a.type === "bunching");
     const size = b.inService ? 8 : 6;
-    ctx.fillStyle = b.estimated ? "#7a63a8" : risk ? "#b73832" : "#277a4b";
+    ctx.fillStyle = risk ? "#000" : "#666";
     ctx.fillRect(q.x - size / 2, q.y - size / 2, size, size);
-    ctx.fillStyle = "#20252b";
+    ctx.fillStyle = "#000";
     ctx.font = "10px Arial";
     ctx.fillText(String(b.bus), q.x + 6, q.y + 3);
   });
@@ -305,7 +305,7 @@ function getRowsForView() {
 function drawTrails(rows) {
   const showingLive = Number($("historyRange").value) === 120;
   if (!showingLive) return;
-  ctx.strokeStyle = "#93a2b3";
+  ctx.strokeStyle = "#999";
   ctx.lineWidth = 1;
   for (const b of rows.slice(0, 80)) {
     const h = history.get(b.bus) || [];
@@ -412,7 +412,7 @@ function restoreLastState() {
 function setConnection() {
   const offline = simulatedOffline || !navigator.onLine;
   $("connectionText").textContent = offline ? "Offline" : "En linea";
-  $("connectionDot").style.background = offline ? "#d94b3d" : "#32b46b";
+  $("connectionDot").style.background = offline ? "#fff" : "#000";
 }
 
 $("startBtn").onclick = () => {
